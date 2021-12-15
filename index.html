@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RGB control</title>
     <link rel="stylesheet" href="style.css">
-    
+
+	<link rel="stylesheet" href="color-picker/color-picker.css" />   
 </head>
 <body>
     <a class="button" class="off" id="on/off" href="javascript:;">
@@ -22,20 +23,36 @@
         <nav class="nav">
             <div class="nav__list">
 
-                
+                <div class="color_picker"></div>
 
-                <a href="javascript:;" class="nav__button">
+                <a href="javascript:;" class="nav__button" id="color">
                     <span class="nav__name">solid</span>
                 </a>
-                <a href="javascript:;" class="nav__button">
+                <a href="javascript:;" class="nav__button" id="color">
+                    <span class="nav__name">blink</span>
+                </a>
+                <a href="javascript:;" class="nav__button" id="color">
+                    <span class="nav__name">breath</span>
+                </a>
+                <a href="javascript:;" class="nav__button" id="color">
+                    <span class="nav__name">fade</span>
+                </a>
+                <a href="javascript:;" class="nav__button" id="color">
+                    <span class="nav__name">twinkle</span>
+                </a>
+                <a href="javascript:;" class="nav__button" id="color">
+                    <span class="nav__name">running lights</span>
+                </a>
+                <a href="javascript:;" class="nav__button" id="rainbow">
                     <span class="nav__name">wave</span>
                 </a>
-                <a href="javascript:;" class="nav__button">
+                <a href="javascript:;" class="nav__button" id="rainbow">
                     <span class="nav__name">rainbow</span>
                 </a>
             </div>
         </nav>
     </div>
     <script src="main.js"></script>
+    <script src="color-picker/color-picker.min.js"></script>
 </body>
 </html>
