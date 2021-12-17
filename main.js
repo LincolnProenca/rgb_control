@@ -28,6 +28,7 @@ function on_off(){
                 button.classList.add('off');
                 button.classList.remove('on_finish');
                 document.getElementById("nav-bar").classList.remove('on_finish');
+                
                 break;
             }
         default:
