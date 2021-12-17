@@ -1,8 +1,14 @@
 button = document.getElementById("on/off");
 button.onclick = function() {on_off()};
 
-bodyStyles = document.body.style;
-bodyStyles.setProperty('--color','#1149e4')
+let progress = document.getElementById("progressbar");
+let nav = document.getElementById('nav');
+let totalHeight = nav.scrollHeight - window.innerHeight;
+nav.onscroll = function() {
+    let progressHeight = (nav.scrollTop/totalHeight)*100;
+    console.log(progressHeight);
+    progress.style.height=progressHeight+'%';
+}
 
 function on_off(){
     var element = document.getElementById("button")
