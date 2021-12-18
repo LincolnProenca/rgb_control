@@ -1,15 +1,6 @@
+/* Button and navbar*/
 button = document.getElementById("on/off");
 button.onclick = function() {on_off()};
-
-let progress = document.getElementById("progressbar");
-let nav = document.getElementById('nav');
-let totalHeight = nav.scrollHeight - window.innerHeight;
-nav.onscroll = function() {
-    let progressHeight = (nav.scrollTop/totalHeight)*100;
-    console.log(progressHeight);
-    progress.style.height=progressHeight+'%';
-}
-
 function on_off(){
     var element = document.getElementById("button")
     switch(element.innerHTML){
@@ -41,3 +32,24 @@ function on_off(){
             console.log("sexo");
     }
 }
+
+list = document.getElementsByClassName('nav__button');
+document.getElementById('nav__list').onclick = function(e) {select(e)}
+function select(e){
+    if (e.path[1].classList.contains('nav__button')) {
+        for (var i = 0; i <list.length; i++) {
+            list[i].classList.remove('selected');
+        }
+        e.path[1].classList.add('selected');
+    }
+}
+
+/* Progress bar */
+let progress = document.getElementById("progressbar");
+let nav = document.getElementById('nav');
+let totalHeight = nav.scrollHeight - window.innerHeight;
+nav.onscroll = function() {
+    let progressHeight = (nav.scrollTop/totalHeight)*100;
+    progress.style.height=progressHeight+'%';
+}
+

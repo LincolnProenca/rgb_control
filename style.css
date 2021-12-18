@@ -34,6 +34,55 @@ body
     justify-items: center;
 }
 
+/* Slider */
+.slider {
+    position:relative;
+    top: 1em;
+    left:48%;
+    transform:translate(-50%,-50%);
+    width:13em;
+    height:1em;
+    padding:25px;
+    padding-left: 40px;
+    background:rgb(19, 20, 20);
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    box-shadow:0px 0px 45px -20px var(--color);
+    transition: 0.5s;
+}
+.slider p {
+    font-size:1.2em;
+    text-transform: uppercase;    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.2px;
+    padding-left:10px;
+    color:rgba(255,255,255,.7);
+    z-index: 101;
+}
+.slider input[type='range'] {
+    -webkit-appearance:none !important;
+    margin-left: -20px;
+    width: 10em;
+    height:5px;
+    background:var(--color);
+    box-shadow: 0px 0px 10px var(--color);
+    border-radius:10px;
+    border:none;
+    outline:none;
+    transition:0.5s;
+    z-index: 101;
+}
+.slider input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance:none !important;
+    width:20px;
+    height:20px;
+    background:#fcfcfc;
+    border:2px solid rgb(44, 46, 46);
+    border-radius:50%;
+    cursor:pointer;
+}
+
 
 /* scrollbar */
 ::-webkit-scrollbar{
@@ -72,7 +121,7 @@ body
     border-radius:10px;
     background: linear-gradient(to top,#008aff,#00ffe7);
     z-index: 9999;
-    animation: scroller 5s linear infinite;
+    animation: scroller 10s linear infinite;
 }
 @keyframes scroller{
     0%,100%{
@@ -115,6 +164,7 @@ a{
 a.nav__button{
     position: relative;
     text-align: center;
+    left: .5em;
     column-gap: 3rem;
     margin: 1rem;
     display: grid;
@@ -138,7 +188,7 @@ a span.nav__name{
     transition: 0.5s;
     z-index: 1;
 }
-a:hover span.nav__name{
+a:hover span.nav__name, a.selected span.nav__name{
     color: rgba(255,255,255,1)
 }
 a span.nav__name::before{
@@ -177,7 +227,7 @@ a.nav__button#color::before{
     transition: .5s;
     animation: animate 20s linear infinite;
 }
-a.nav__button#color:hover::before,a.nav__button#color:hover::after{
+a.nav__button#color:hover::before,a.nav__button#color:hover::after,a.selected#color::before,a.selected#color::after{
     opacity: 1;
 }
 a.nav__button#rainbow::after{
@@ -207,7 +257,7 @@ a.nav__button#rainbow::before{
     transition: .5s;
     animation: animate 20s linear infinite;
 }
-a.nav__button#rainbow:hover::before,a.nav__button#rainbow:hover::after{
+a.nav__button#rainbow:hover::before,a.nav__button#rainbow:hover::after,a.selected#rainbow::before,a.selected#rainbow::after{
     opacity: 1;
 }
 @keyframes animate

@@ -25,11 +25,17 @@
 
     <div class="r-navbar" id="nav-bar">
         <nav class="nav" id="nav">
-            <div class="nav__list">
+            <div class="nav__list" id="nav__list">
 
                 <div id="color-picker" class="color_picker"></div>
+
+                <div class="slider">
+                    <input type='range' min='0' max='100' value='10'   oninput='rangeValue.innerText = this.value'>
+                    <p id='rangeValue'>10</p>
+                    <span class='slider_in'></span>
+                </div>
                 
-                <a href="javascript:;" class="nav__button" id="color">
+                <a href="javascript:;" class="nav__button selected" id="color">
                     <span class="nav__name">solid</span>
                 </a>
                 <a href="javascript:;" class="nav__button" id="color">
