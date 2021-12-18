@@ -136,7 +136,7 @@ body
 a{
     text-decoration: none;
 }
-#nav-bar.on_finish{
+#nav-bar.show{
     right: 0.1rem;
 }
 .r-navbar{
@@ -278,8 +278,6 @@ a.button
 {
     font-family: fantasy;
     font-weight: bold;
-    top: 0;
-    left: 0;
     position: relative;
     display: inline-block;
     padding: 0em 2em;
@@ -291,19 +289,27 @@ a.button
     overflow: hidden;
     transition: 0.2;
 }
-
+.button-container{
+    position: absolute;
+    top: 43%;
+    left: calc(20vw + (100vw - 300px) * 0.28);
+    transition: 0.5s;
+}
+.button-container.on_finish {
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    transition: 0.5s;
+}
 a.button.on_finish
 {
     color: rgba(0, 0, 0, 0.507);
     background: var(--color);
     box-shadow: 0 0 5px var(--color),0 0 25px var(--color),0 0 50px var(--color),0 0 200px var(--color);
     font-size: 18px;
-    top: -46vh;
-    left: -47%;
     transition-duration: 0.5s,0.5s,0.5s,0.1s,0.1s,0.1s;
     transition-delay: 0,0,0,0,0,0;
 }
-
 a.button.on
 {
     transition-property: top,left,font-size,background-color,box-shadow,color;
@@ -314,7 +320,6 @@ a.button.on
     transition-delay: 0.6s,0.6s,0.6s,0.6s,0.6s,0.6s;
 
 }
-
 a.button span
 {
     position: absolute;
@@ -334,7 +339,6 @@ a.button.on span:nth-child(1)
     left: 100%;
     transition: 0.5s;
 }
-
 a span:nth-child(3)
 {
     bottom: 0;
@@ -349,7 +353,6 @@ a.button.on span:nth-child(3)
     transition: 0.5s;
     transition-delay: 0.25s;
 }
-
 a.button span:nth-child(2)
 {
     top: -100%;
@@ -378,7 +381,6 @@ a.button.on span:nth-child(4)
     transition: 0.5s;
     transition-delay: 0.35s;
 }
-
 a.button.off
 {
     transition: 0.5s;

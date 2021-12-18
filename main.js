@@ -10,10 +10,11 @@ function on_off(){
             button.classList.remove('off');
             button.classList.add('turning');
             setTimeout(function() {
+                document.getElementById("button-container").classList.add("on_finish")
                 button.classList.add("on_finish");
                 button.classList.remove('on');
                 button.classList.remove('turning');
-                document.getElementById("nav-bar").classList.add("on_finish");
+                document.getElementById("nav-bar").classList.add("show");
             }, 1200);
             break;
         case "on":
@@ -24,7 +25,8 @@ function on_off(){
                 console.log(button.id);
                 button.classList.add('off');
                 button.classList.remove('on_finish');
-                document.getElementById("nav-bar").classList.remove('on_finish');
+                document.getElementById("button-container").classList.remove('on_finish');
+                document.getElementById("nav-bar").classList.remove('show');
                 
                 break;
             }
