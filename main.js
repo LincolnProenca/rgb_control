@@ -15,6 +15,7 @@ function on_off(){
                 button.classList.remove('on');
                 button.classList.remove('turning');
                 document.getElementById("nav-bar").classList.add("show");
+                document.getElementById("image").classList.add("show");
             }, 1200);
             break;
         case "on":
@@ -27,6 +28,7 @@ function on_off(){
                 button.classList.remove('on_finish');
                 document.getElementById("button-container").classList.remove('on_finish');
                 document.getElementById("nav-bar").classList.remove('show');
+                document.getElementById("image").classList.remove("show");
                 
                 break;
             }
