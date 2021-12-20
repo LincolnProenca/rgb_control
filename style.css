@@ -120,6 +120,7 @@ svg{
     height: 60%;
     z-index: -1;
     fill: var(--color);
+    transition: 0.5s;
 }
 
 
