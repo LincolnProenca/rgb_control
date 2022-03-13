@@ -70,9 +70,9 @@ xhttp.open('GET', 'modes', true);
 xhttp.send();
 });
 
-function onColor(color) {
+function onColor(color){
   console.log(color);
-  submitVal('c',color.slice(0,3));
+  submitVal('c',color.slice(1));
 }
 
 let inp = document.querySelector('input');
@@ -97,12 +97,12 @@ let color_pickers = [
   
   color_pickers.forEach(color_picker => {
     color_picker.on('change', function (color) {
-      bodyStyles.setProperty('--color', color.toRGBa());
+      bodyStyles.setProperty('--color', color.toHEX());
       color_pickers.filter(p => p != color_picker).forEach((p) => {
         p.color.fromHSVa(color.h, color.s, color.v, color.a);
         p.update(false);
       });
-      onColor(color.toRGBa());
+      onColor(color.toHEX());
     });
   });
   
