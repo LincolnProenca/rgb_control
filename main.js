@@ -37,6 +37,73 @@ function on_off(){
     }
 }
 
+var m_dict = {
+  'Static' : 0,
+  'Blink' : 1,
+  'Breath' : 2, 
+  'Color Wipe': 3,
+  'Color Wipe Inverse': 4,
+  'Color Wipe Reverse': 5,
+  'Color Wipe Reverse Inverse': 6,
+  'Color Wipe Random': 7,
+  'Random Color': 8,
+  'Single Dynamic': 9,
+  'Multi Dynamic': 10,
+  'Rainbow': 11,
+  'Rainbow Cycle': 12,
+  'Scan': 13,
+  'Dual Scan': 14,
+  'Fade': 15,
+  'Theater Chase': 16,
+  'Theater Chase Rainbow': 17,
+  'Running Lights': 18,
+  'Twinkle': 19,
+  'Twinkle Random': 20,
+  'Twinkle Fade': 21,
+  'Twinkle Fade Random': 22,
+  'Sparkle': 23,
+  'Flash Sparkle': 24,
+  'Hyper Sparkle': 25,
+  'Strobe': 26,
+  'Strobe Rainbow': 27,
+  'Multi Strobe': 28,
+  'Blink Rainbow': 29,
+  'Chase White': 30,
+  'Chase Color': 31,
+  'Chase Random': 32,
+  'Chase Rainbow': 33,
+  'Chase Flash': 34,
+  'Chase Flash Random': 35,
+  'Chase Rainbow White': 36,
+  'Chase Blackout': 37,
+  'Chase Blackout Rainbow': 38,
+  'Color Sweep Random': 39,
+  'Running Color': 40,
+  'Running Red Blue': 41,
+  'Running Random': 42,
+  'Larson Scanner': 43,
+  'Comet': 44,
+  'Fireworks': 45,
+  'Fireworks Random': 46,
+  'Merry Christmas': 47,
+  'Fire Flicker': 48,
+  'Fire Flicker (soft)': 49,
+  'Fire Flicker (intense)': 50,
+  'Circus Combustus': 51,
+  'Halloween': 52,
+  'Bicolor Chase': 53,
+  'Tricolor Chase': 54,
+  'TwinkleFOX': 55,
+  'Rain': 56,
+  'Custom 0': 57,
+  'Custom 1': 58,
+  'Custom 2': 59,
+  'Custom 3': 60,
+  'Custom 4': 61,
+  'Custom 5': 62,
+  'Custom 6': 63,
+  'Custom 7': 64,
+};
 list = document.getElementsByClassName('nav__button');
 document.getElementById('nav__list').onclick = function(e) {select(e)}
 function select(e){
@@ -45,17 +112,9 @@ function select(e){
             list[i].classList.remove('selected');
         }
         e.path[1].classList.add('selected');
-        submitVal('m', e.path[0]['innerText'])
+        console.log(e.path[0]['innerHTML'])
+        submitVal('m', m_dict[e.path[0]['innerHTML']]);
     }
-}
-
-/* Progress bar */
-let progress = document.getElementById("progressbar");
-let nav = document.getElementById('nav');
-let totalHeight = nav.scrollHeight - window.innerHeight;
-nav.onscroll = function() {
-    let progressHeight = (nav.scrollTop/totalHeight)*100;
-    progress.style.height=progressHeight+'%';
 }
 
 /* Requests */
@@ -68,11 +127,20 @@ xhttp.onreadystatechange = function() {
 };
 xhttp.open('GET', 'modes', true);
 xhttp.send();
+
+/* Progress bar */
+var progress = document.getElementById("progressbar");
+var nav = document.getElementById('nav');
+var totalHeight = nav.scrollHeight - window.innerHeight;
+nav.onscroll = function() {
+      let progressHeight = (nav.scrollTop/totalHeight)*100;
+      progress.style.height=progressHeight+'%';
+  }
 });
 
 function onColor(color){
   console.log(color);
-  submitVal('c',color.slice(1));
+  submitVal('c','0x' + color.slice(1));
 }
 
 let inp = document.querySelector('input');
