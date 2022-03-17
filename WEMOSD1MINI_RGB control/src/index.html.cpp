@@ -14,13 +14,13 @@ char index_html[] PROGMEM = R"=====(
 
 <body>
     <div class="button-container" id="button-container">
-        <a class="button" class="off" id="on/off" href="javascript:;">
+        <a class="button" id="on/off" href="javascript:;">
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-            <p id="button">off</p>
+            <p id="button"></p>
         </a>
     </div>
 

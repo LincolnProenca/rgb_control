@@ -14,7 +14,7 @@
 
 #include <WS2812FX.h>
 
-extern const char index_html[];
+extern char index_html[];
 extern const char main_js[];
 extern const char style_css[];
 
@@ -40,6 +40,9 @@ extern const char style_css[];
 
 unsigned long auto_last_change = 0;
 unsigned long last_wifi_check_time = 0;
+String of = "off";
+String speed = "100";
+String color = "#1149e4";
 String modes = "";
 String id = "";
 uint8_t myModes[] = {}; // *** optionally create a custom list of effect/mode numbers
@@ -56,7 +59,9 @@ void srv_handle_not_found();
 void srv_handle_main_js();
 void srv_handle_style_css();
 void srv_handle_modes();
+void srv_handle_stats();
 void srv_handle_set();
+void srv_handle_hset();
 
 void setup(){
   Serial.begin(115200);
@@ -81,8 +86,10 @@ void setup(){
   server.on("/", srv_handle_index_html);
   server.on("/main.js", srv_handle_main_js);
   server.on("/style.css", srv_handle_style_css);
+  server.on("/stats", srv_handle_stats);
   server.on("/modes", srv_handle_modes);
   server.on("/set", srv_handle_set);
+  server.on("/hset", srv_handle_hset);
   server.onNotFound(srv_handle_not_found);
   server.begin();
   Serial.println("HTTP server started.");
@@ -158,16 +165,15 @@ void modes_setup() {
     uint8_t m = sizeof(myModes) > 0 ? myModes[i] : i;
     String nome = ws2812fx.getModeName(m);
     Serial.println(nome);
-    nome == "Static" ? modes += "<a href='javascript:;' class='nav__button selected'" : modes += "<a href='javascript:;' class='nav__button'";
-
     if (nome.indexOf("Rainbow") != -1){
       id = "rainbow";
     }
     else{
       id = "color";
     }
+    modes += "<a href='javascript:;' class='nav__button "+nome+"'";
     modes +=  "id='" + id + "'><span class='nav__name'>";
-    modes += ws2812fx.getModeName(m);
+    modes += nome;
     modes += "</span></a>";
   }
 }
@@ -196,6 +202,11 @@ void srv_handle_modes() {
   server.send(200,"text/plain", modes);
 }
 
+void srv_handle_stats(){
+  String stats = of + " | " + speed + " | " + ws2812fx.getModeName(ws2812fx.getMode()) + " | " + color;
+  server.send(200,"text/plain", stats);
+}
+
 void srv_handle_set() {
   for (uint8_t i=0; i < server.args(); i++){
     if(server.argName(i) == "c") {
@@ -205,6 +216,8 @@ void srv_handle_set() {
         Serial.println(server.arg(i));
         Serial.println(tmp);
       }
+      color = "#" + server.arg(i).substring(2);
+      Serial.println(color);
     }
 
     if(server.argName(i) == "m") {
@@ -222,9 +235,26 @@ void srv_handle_set() {
       } else {
         uint16_t tmp = (uint16_t) strtol(server.arg(i).c_str(), NULL, 10)*10;
         ws2812fx.setSpeed(tmp);
+        speed = server.arg(i);
+        Serial.println(speed);
       }
       Serial.print("speed is "); Serial.println(ws2812fx.getSpeed());
     }
+
+    if(server.argName(i) == "of") {
+      of = server.arg(i);
+      Serial.println(of);
+      if (of == "on")
+      {
+        ws2812fx.setBrightness(128);
+      }else{
+        ws2812fx.setBrightness(0);
+      }
+    }
   }
   server.send(200, "text/plain", "OK");
+}
+
+void srv_handle_hset(){
+  Serial.print(server.args());
 }

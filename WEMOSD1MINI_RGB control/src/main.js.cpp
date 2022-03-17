@@ -3,8 +3,8 @@ char main_js[] PROGMEM = R"=====(
 /* Button and navbar*/
 button = document.getElementById("on/off");
 button.onclick = function() {on_off()};
+element = document.getElementById("button");
 function on_off(){
-    var element = document.getElementById("button")
     switch(element.innerHTML){
         case "off":
             element.innerHTML = "on";
@@ -18,6 +18,7 @@ function on_off(){
                 button.classList.remove('turning');
                 document.getElementById("nav-bar").classList.add("show");
                 document.getElementById("image").classList.add("show");
+                submitVal("of","on");
             }, 1200);
             break;
         case "on":
@@ -31,7 +32,7 @@ function on_off(){
                 document.getElementById("button-container").classList.remove('on_finish');
                 document.getElementById("nav-bar").classList.remove('show');
                 document.getElementById("image").classList.remove("show");
-                
+                submitVal("of","off");
                 break;
             }
         default:
@@ -120,6 +121,37 @@ function select(e){
 }
 
 /* Requests */
+
+window.addEventListener('load', (event) => {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+   if (xhttp.readyState == 4 && xhttp.status == 200) {
+     console.log(xhttp.responseText);
+     stats = xhttp.responseText.split(' | ');
+     console.log(stats);
+
+     element.innerHTML = stats[0];
+     if (stats[0] == 'on'){
+      button.classList.add('on_finish');
+      document.getElementById("button-container").classList.add("on_finish");
+      document.getElementById("nav-bar").classList.add("show");
+      document.getElementById("image").classList.add("show");
+     }else{
+      button.classList.add(stats[0]);
+     }
+
+     document.getElementById('rangeValue').innerHTML = stats[1];
+
+     var modo = document.getElementsByClassName(stats[2])[0];
+     modo.classList.add('selected');
+
+     document.body.style.setProperty('--color', stats[3]);
+   }
+  };
+  xhttp.open('GET', 'stats', true);
+  xhttp.send();
+  });
+
 window.addEventListener('DOMContentLoaded', (event) => {
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {

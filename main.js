@@ -10,7 +10,7 @@ function on_off(){
             button.classList.remove('off');
             button.classList.add('turning');
             setTimeout(function() {
-                document.getElementById("button-container").classList.add("on_finish");
+                document.getElementById("button-container").classList.add("on_finish")
                 button.classList.add("on_finish");
                 button.classList.remove('on');
                 button.classList.remove('turning');
@@ -119,7 +119,8 @@ function select(e){
 }
 
 /* Requests */
-window.addEventListener('DOMContentLoaded', (event) => {
+
+window.addEventListener('load', (event) => {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
    if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -139,7 +140,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
      document.getElementById('rangeValue').innerHTML = stats[1];
 
-     var modo = document.querySelectorAll("." + stats[2]);
+     var modo = document.getElementsByClassName(stats[2])[0];
      modo.classList.add('selected');
 
      document.body.style.setProperty('--color', stats[3]);
@@ -150,39 +151,39 @@ window.addEventListener('DOMContentLoaded', (event) => {
   });
 
 window.addEventListener('DOMContentLoaded', (event) => {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-   if (xhttp.readyState == 4 && xhttp.status == 200) {
-     document.getElementById('modes').innerHTML = xhttp.responseText;
-   }
-  };
-  xhttp.open('GET', 'modes', true);
-  xhttp.send();
-  
-  /* Progress bar */
-  var progress = document.getElementById("progressbar");
-  var nav = document.getElementById('nav');
-  nav.onscroll = function() {
-        let progressHeight = nav.scrollTop/(nav.scrollHeight - window.innerHeight);
-        progress.style.height= (progressHeight.toFixed(2))*100 + "%";
-    }
-  });
-  
-  function onColor(color){
-    console.log(color);
-    submitVal('c','0x' + color.slice(1));
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+ if (xhttp.readyState == 4 && xhttp.status == 200) {
+   document.getElementById('modes').innerHTML = xhttp.responseText;
+ }
+};
+xhttp.open('GET', 'modes', true);
+xhttp.send();
+
+/* Progress bar */
+var progress = document.getElementById("progressbar");
+var nav = document.getElementById('nav');
+nav.onscroll = function() {
+      let progressHeight = nav.scrollTop/(nav.scrollHeight - window.innerHeight);
+      progress.style.height= (progressHeight.toFixed(2))*100 + "%";
   }
-  
-  let inp = document.querySelector('input');
-  inp.addEventListener('input', function () {
-    console.log(inp.value);
-    submitVal('s',inp.value);
-  }, false);
-  
-  function submitVal(name, val) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.open('GET', 'set?' + name + '=' + val, true);
-  xhttp.send();
+});
+
+function onColor(color){
+  console.log(color);
+  submitVal('c','0x' + color.slice(1));
+}
+
+let inp = document.querySelector('input');
+inp.addEventListener('input', function () {
+  console.log(inp.value);
+  submitVal('s',inp.value);
+}, false);
+
+function submitVal(name, val) {
+var xhttp = new XMLHttpRequest();
+xhttp.open('GET', 'set?' + name + '=' + val, true);
+xhttp.send();
 }
 
 /* Color picker */
