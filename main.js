@@ -1,8 +1,8 @@
 /* Button and navbar*/
 button = document.getElementById("on/off");
 button.onclick = function() {on_off()};
+element = document.getElementById("button");
 function on_off(){
-    var element = document.getElementById("button")
     switch(element.innerHTML){
         case "off":
             element.innerHTML = "on";
@@ -10,12 +10,13 @@ function on_off(){
             button.classList.remove('off');
             button.classList.add('turning');
             setTimeout(function() {
-                document.getElementById("button-container").classList.add("on_finish")
+                document.getElementById("button-container").classList.add("on_finish");
                 button.classList.add("on_finish");
                 button.classList.remove('on');
                 button.classList.remove('turning');
                 document.getElementById("nav-bar").classList.add("show");
                 document.getElementById("image").classList.add("show");
+                submitVal("of","on");
             }, 1200);
             break;
         case "on":
@@ -29,7 +30,7 @@ function on_off(){
                 document.getElementById("button-container").classList.remove('on_finish');
                 document.getElementById("nav-bar").classList.remove('show');
                 document.getElementById("image").classList.remove("show");
-                
+                submitVal("of","off");
                 break;
             }
         default:
@@ -119,40 +120,69 @@ function select(e){
 
 /* Requests */
 window.addEventListener('DOMContentLoaded', (event) => {
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
- if (xhttp.readyState == 4 && xhttp.status == 200) {
-   document.getElementById('modes').innerHTML = xhttp.responseText;
- }
-};
-xhttp.open('GET', 'modes', true);
-xhttp.send();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+   if (xhttp.readyState == 4 && xhttp.status == 200) {
+     console.log(xhttp.responseText);
+     stats = xhttp.responseText.split(' | ');
+     console.log(stats);
 
-/* Progress bar */
-var progress = document.getElementById("progressbar");
-var nav = document.getElementById('nav');
-var totalHeight = nav.scrollHeight - window.innerHeight;
-nav.onscroll = function() {
-      let progressHeight = (nav.scrollTop/totalHeight)*100;
-      progress.style.height=progressHeight+'%';
+     element.innerHTML = stats[0];
+     if (stats[0] == 'on'){
+      button.classList.add('on_finish');
+      document.getElementById("button-container").classList.add("on_finish");
+      document.getElementById("nav-bar").classList.add("show");
+      document.getElementById("image").classList.add("show");
+     }else{
+      button.classList.add(stats[0]);
+     }
+
+     document.getElementById('rangeValue').innerHTML = stats[1];
+
+     var modo = document.querySelectorAll("." + stats[2]);
+     modo.classList.add('selected');
+
+     document.body.style.setProperty('--color', stats[3]);
+   }
+  };
+  xhttp.open('GET', 'stats', true);
+  xhttp.send();
+  });
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+   if (xhttp.readyState == 4 && xhttp.status == 200) {
+     document.getElementById('modes').innerHTML = xhttp.responseText;
+   }
+  };
+  xhttp.open('GET', 'modes', true);
+  xhttp.send();
+  
+  /* Progress bar */
+  var progress = document.getElementById("progressbar");
+  var nav = document.getElementById('nav');
+  nav.onscroll = function() {
+        let progressHeight = nav.scrollTop/(nav.scrollHeight - window.innerHeight);
+        progress.style.height= (progressHeight.toFixed(2))*100 + "%";
+    }
+  });
+  
+  function onColor(color){
+    console.log(color);
+    submitVal('c','0x' + color.slice(1));
   }
-});
-
-function onColor(color){
-  console.log(color);
-  submitVal('c','0x' + color.slice(1));
-}
-
-let inp = document.querySelector('input');
-inp.addEventListener('input', function () {
-  console.log(inp.value);
-  submitVal('s',inp.value);
-}, false);
-
-function submitVal(name, val) {
-var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'set?' + name + '=' + val, true);
-xhttp.send();
+  
+  let inp = document.querySelector('input');
+  inp.addEventListener('input', function () {
+    console.log(inp.value);
+    submitVal('s',inp.value);
+  }, false);
+  
+  function submitVal(name, val) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open('GET', 'set?' + name + '=' + val, true);
+  xhttp.send();
 }
 
 /* Color picker */
