@@ -171,7 +171,7 @@ void modes_setup() {
     else{
       id = "color";
     }
-    modes += "<a href='javascript:;' class='nav__button "+nome+"'";
+    modes += "<a title='" + nome + "' href='javascript:;' class='nav__button "+nome+"'";
     modes +=  "id='" + id + "'><span class='nav__name'>";
     modes += nome;
     modes += "</span></a>";
