@@ -33,7 +33,7 @@ extern const char style_css[];
 #define max(a,b) ((a)>(b)?(a):(b))
 
 #define LED_PIN 2                       // 0 = GPIO0, 2=GPIO2
-#define LED_COUNT 10
+#define LED_COUNT 120
 
 #define WIFI_TIMEOUT 30000              // checks WiFi every ...ms. Reset after this time, if WiFi cannot reconnect.
 #define HTTP_PORT 80
@@ -76,7 +76,7 @@ void setup(){
   ws2812fx.setMode(FX_MODE_STATIC);
   ws2812fx.setColor(0x1149e4);
   ws2812fx.setSpeed(100);
-  ws2812fx.setBrightness(128);
+  ws2812fx.setBrightness(0);
   ws2812fx.start();
 
   Serial.println("Wifi setup");
