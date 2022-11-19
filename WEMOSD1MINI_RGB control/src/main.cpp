@@ -21,10 +21,10 @@ extern const char style_css[];
 #define WIFI_SSID "This is not a virus 2.4GHz"
 #define WIFI_PASSWORD "13092002l"
 
-//#define STATIC_IP                       // uncomment for static IP, set IP below
+#define STATIC_IP                       // uncomment for static IP, set IP below
 #ifdef STATIC_IP
-  IPAddress ip(192,168,0,123);
-  IPAddress gateway(192,168,0,1);
+  IPAddress ip(192,168,1,15);
+  IPAddress gateway(192,168,1,1);
   IPAddress subnet(255,255,255,0);
 #endif
 
@@ -91,6 +91,7 @@ void setup(){
   server.on("/set", srv_handle_set);
   server.on("/hset", srv_handle_hset);
   server.onNotFound(srv_handle_not_found);
+  server.enableCORS(true);
   server.begin();
   Serial.println("HTTP server started.");
 
